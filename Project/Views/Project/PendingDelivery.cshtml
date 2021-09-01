@@ -1,0 +1,107 @@
+﻿@model List<DeliveryInatechMvc.Models.BookingTb>
+
+@{
+    ViewBag.Title = "PendingDelivery";
+}
+
+<h2>PendingDelivery</h2>
+<html>
+<head>
+    <link href="~/Bootstrap/CSS/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/Bootstrap/JS/bootstrap.bundle.min.js"></script>
+    <script src="~/Bootstrap/JS/bootstrap.min.js"></script>
+    <script src="~/Bootstrap/JS/popper.min.js"></script>
+
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light">
+
+            <img src="~/Images/truckLOGO.jpg" />
+
+            <div class="collapse navbar-collapse" id="navbarSupportContent">
+                <ul class="navbar-nav d-flex me-auto">
+                    <li class="nav-item active">
+                        @Html.ActionLink("Home", "Project", "Index") &nbsp;&nbsp;
+                    </li>
+                    <li class="nav-item active">
+                        @Html.ActionLink("About Us", "Project", "Index") &nbsp;&nbsp;
+                    </li>
+                    <li class="nav-item active">
+                        @Html.ActionLink("Terms", "Project", "Index") &nbsp;&nbsp;
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li>
+                        @Html.ActionLink("Back to HomePage", "Index2", "Project") &nbsp;&nbsp;
+                    </li>
+                    <li>
+                        @Html.ActionLink("LogOut", "Index", "Project")
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <h4><strong class="text-danger">@TempData["Message"]</strong></h4>
+    <table id="t01" class="table table-bordered table-hover">
+        <thead>
+        <th>Booking Id</th>
+        <th>Customer Id</th>
+        <th>Date</th>
+        <th>Time</th>
+        <th>Weight</th>
+        <th>Price</th>
+        <th>Status</th>
+        </thead>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.OrderId
+                </td>
+                <td>
+                    @item.CustomerId
+                </td>
+                <td>
+                    @item.Date
+                </td>
+                <td>
+                    @item.Time
+                </td>
+                <td>
+                    @item.Weight
+                </td>
+                <td>
+                    @item.Price
+                </td>
+                <td>
+                    @if (item.Flag == true)
+                    {
+                        <label>Not Deliverd</label> }
+                    else
+                    {
+                        <label> Deliverd</label>}
+                </td>
+                <td>
+                    @if (item.Flag == false)
+                    {
+                        <a href="#" class="badge bg-warning">Delivered</a>
+                    }
+                    else
+                    {
+                        <a href=@Url.Action("PendingDelivery2",new { item.OrderId, item.CustomerId, item.Date, item.Time, item.Weight, item.Price}) class="btn btn-danger">Markas Delivered</a>
+                        @*<a href=@Url.Action("CancelOrder") class="btn btn-danger">Cancel</a>*@
+                    }
+
+
+
+                </td>
+            </tr>
+        }
+
+
+
+
+    </table>
+</body>
+</html>
